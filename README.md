@@ -1,4 +1,4 @@
-# Margin — website
+# Margin - website
 
 Marketing site & beta waitlist for **Margin**, a quiet AI agent that lives at
 the edge of your Mac. Built with Next.js 16 (App Router) + Tailwind v4.
