@@ -3,7 +3,7 @@ import { LegalPage, LegalSection } from "@/components/Legal";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Margin handles your data. Your notes are yours — local-first by design.",
+  description: "How Margin handles your data. Your notes are yours, local-first by design.",
 };
 
 // TODO before launch: replace [LEGAL ENTITY] and [CONTACT EMAIL], and have a
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
       <LegalSection heading="What we never do">
         <p>
           We don&apos;t sell your data. We don&apos;t run ads against your
-          content. We don&apos;t read your notes — Margin does, on your device,
+          content. We don&apos;t read your notes. Margin does, on your device,
           at your request.
         </p>
       </LegalSection>

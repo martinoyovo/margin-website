@@ -18,7 +18,7 @@ type Tier = {
   featured?: boolean;
 };
 
-// Placeholder pricing — swap in real numbers before launch.
+// Placeholder pricing. Swap in real numbers before launch.
 const tiers: Tier[] = [
   {
     name: "Beta",
@@ -35,7 +35,7 @@ const tiers: Tier[] = [
   },
   {
     name: "Pro",
-    price: "$—",
+    price: "TBA",
     cadence: "/ month",
     blurb: "For when Margin ships. Final price announced to the waitlist first.",
     features: [
@@ -60,7 +60,7 @@ export default function PricingPage() {
           </h1>
           <p className="mx-auto mt-6 max-w-md text-lg text-muted">
             Margin is free for everyone in the private beta. Paid plans arrive
-            when it ships — waitlist members hear the price first.
+            when it ships, and waitlist members hear the price first.
           </p>
         </div>
 

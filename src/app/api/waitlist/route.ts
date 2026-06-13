@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Waitlist capture. Provider-agnostic — wire one of these env vars at launch:
+ * Waitlist capture. Provider-agnostic. Wire one of these env vars at launch:
  *
  *   WAITLIST_WEBHOOK_URL   POSTs { email, source, ts } as JSON (Zapier / Make /
  *                          Google Sheets / your own endpoint). Easiest.
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
         },
         body: JSON.stringify({ email }),
       });
-      // 201 created or 200/204 on upsert; 409 means already on the list — fine.
+      // 201 created or 200/204 on upsert; 409 means already on the list, which is fine.
       if (!r.ok && r.status !== 409) throw new Error(`supabase ${r.status}`);
     } else {
       console.log(`[waitlist] ${email} @ ${ts} (no provider configured)`);

@@ -46,7 +46,7 @@ body {
   color: var(--color-gold);
 }
 
-/* the glowing core — reused for accents */
+/* the glowing core, reused for accents */
 .gold-glow {
   box-shadow:
     0 0 0 1px rgba(255, 194, 51, 0.25),

@@ -35,7 +35,7 @@ function Hero() {
           className="animate-rise mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted"
           style={{ animationDelay: "80ms" }}
         >
-          Apple gave your notes a better pen. Margin gives them a mind — an AI
+          Apple gave your notes a better pen. Margin gives them a mind. An AI
           agent that reads what you&apos;re working on and thinks with you. One
           keystroke, anywhere on your screen.
         </p>
@@ -69,21 +69,21 @@ function Story() {
         </h2>
         <div className="mt-8 space-y-6 text-left text-[1.05rem] leading-relaxed text-muted">
           <p>
-            Newton, Fermat, da Vinci — their breakthroughs weren&apos;t in the
+            Newton, Fermat, da Vinci: their breakthroughs weren&apos;t in the
             body text. They were scribbled in the margin, where reading turns
             into thinking. <span className="text-paper">Marginalia</span> is the
             oldest form of a second brain.
           </p>
           <p>
             Then notes went digital, and the margin disappeared. Today most of
-            us keep years of notes that quietly go to die — a graveyard we never
+            us keep years of notes that quietly go to die, a graveyard we never
             reopen. Apple put AI in there, but it only sharpens the pen: rewrite
             this, summarize that, fix the grammar. It makes the tombstones
             prettier.
           </p>
           <p className="text-paper">
-            Margin brings the margin back. It doesn&apos;t polish your sentences
-            — it thinks alongside them.
+            Margin brings the margin back. It doesn&apos;t polish your
+            sentences. It thinks alongside them.
           </p>
         </div>
       </div>
@@ -102,12 +102,12 @@ function HowItWorks() {
     {
       n: "02",
       t: "One keystroke",
-      d: "Press ⌘⇧Space anywhere. A frosted panel slides in from the margin — already holding the context of what you were looking at.",
+      d: "Press ⌘⇧Space anywhere. A frosted panel slides in from the margin, already holding the context of what you were looking at.",
     },
     {
       n: "03",
       t: "Think together",
-      d: "Ask anything. Margin reasons across your notes with a frontier-grade mind and answers from your own knowledge — then gets out of the way.",
+      d: "Ask anything. Margin reasons across your notes with a frontier-grade mind and answers from your own knowledge, then gets out of the way.",
     },
   ];
   return (
@@ -191,7 +191,7 @@ function Pillars() {
   const pillars = [
     {
       t: "Agent, not feature",
-      d: "It acts on your context — answers, connects, drafts — instead of just autocompleting the line you’re on.",
+      d: "It acts on your context (answers, connects, drafts) instead of just autocompleting the line you’re on.",
     },
     {
       t: "One key, everywhere",
@@ -199,7 +199,7 @@ function Pillars() {
     },
     {
       t: "Your context, kept close",
-      d: "Margin reads what you choose to show it and reasons privately. Your notes are yours — local-first by design.",
+      d: "Margin reads what you choose to show it and reasons privately. Your notes are yours, local-first by design.",
     },
   ];
   return (

@@ -28,11 +28,11 @@ const SITE_URL = "https://margin.app";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Margin — the AI that thinks in the margin of your notes",
+    default: "Margin: the AI that thinks in the margin of your notes",
     template: "%s · Margin",
   },
   description:
-    "Apple gave your notes a better pen. Margin gives them a mind. A quiet AI agent that reads what you're working on and thinks with you — one keystroke, anywhere on your Mac.",
+    "Apple gave your notes a better pen. Margin gives them a mind. A quiet AI agent that reads what you're working on and thinks with you. One keystroke, anywhere on your Mac.",
   keywords: [
     "Margin",
     "AI notes",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     "marginalia",
   ],
   openGraph: {
-    title: "Margin — the AI that thinks in the margin of your notes",
+    title: "Margin: the AI that thinks in the margin of your notes",
     description:
       "The best ideas were never in the text. They were in the margin. A quiet AI agent for your Mac.",
     url: SITE_URL,
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Margin — the AI that thinks in the margin of your notes",
+    title: "Margin: the AI that thinks in the margin of your notes",
     description:
       "The best ideas were never in the text. They were in the margin.",
   },

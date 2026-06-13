@@ -6,7 +6,7 @@ import { Logo } from "@/components/Logo";
 
 export const metadata: Metadata = {
   title: "Download",
-  description: "Margin for macOS — in private beta. Join the waitlist for your invite.",
+  description: "Margin for macOS, in private beta. Join the waitlist for your invite.",
 };
 
 // Set this to the real .dmg URL when the build is ready.
@@ -24,7 +24,7 @@ export default function DownloadPage() {
             Coming soon to your menu bar.
           </h1>
           <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-muted">
-            Margin is in private beta. We&apos;re sending invites in waves — join
+            Margin is in private beta. We&apos;re sending invites in waves. Join
             the waitlist and you&apos;ll get the download link and a setup guide
             by email.
           </p>

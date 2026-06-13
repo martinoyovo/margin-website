@@ -3,7 +3,7 @@ import { Logo } from "./Logo";
 /**
  * Stylized depiction of the Margin overlay: a note open on the left, the
  * frosted Margin panel sliding in from the right edge of the screen, already
- * answering from the note's context. Pure CSS — no screenshots.
+ * answering from the note's context. Pure CSS, no screenshots.
  */
 export function OverlayMock() {
   return (
@@ -36,7 +36,7 @@ export function OverlayMock() {
             </div>
           </div>
 
-          {/* Margin panel — frosted, sliding in from the edge */}
+          {/* Margin panel, frosted, sliding in from the edge */}
           <div className="animate-slide-edge absolute inset-y-3 right-3 flex w-[58%] flex-col rounded-xl border border-white/10 bg-white/[0.06] p-4 backdrop-blur-md sm:w-[52%]">
             <div className="flex items-center gap-2 border-b border-white/[0.07] pb-3">
               <Logo size={18} />

@@ -82,7 +82,7 @@ export function WaitlistForm({
         <p className="mt-2.5 pl-1 text-sm text-red-400">{message}</p>
       )}
       <p className="mt-3 pl-1 text-xs text-faint">
-        Free during the beta. No spam — just your invite when it's ready.
+        Free during the beta. No spam, just your invite when it's ready.
       </p>
     </form>
   );

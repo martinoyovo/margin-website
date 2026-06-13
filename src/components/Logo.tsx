@@ -1,6 +1,6 @@
 type LogoProps = {
   size?: number;
-  /** ring color — defaults to paper/white for dark backgrounds */
+  /** ring color, defaults to paper/white for dark backgrounds */
   ring?: string;
   className?: string;
   /** add the soft glow around the core */
