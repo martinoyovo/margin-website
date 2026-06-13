@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
+/* ── Margin brand: ink + gold ──────────────────────────────────────────── */
+@theme {
+  --color-ink: #14131a;
+  --color-ink-soft: #1e1c26;
+  --color-ink-raised: #26242f;
+  --color-gold: #ffc233;
+  --color-gold-hi: #ffd879;
+  --color-mist: #e8e6ec;
+  --color-white: #ffffff;
+
+  /* tuned neutrals for body text on ink */
+  --color-paper: #f7f6f3;
+  --color-muted: #9b98a6;
+  --color-faint: #6b6878;
+
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-jetbrains), "SF Mono", ui-monospace, monospace;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #14131a;
+  --foreground: #f7f6f3;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* eyebrow / mono label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* the glowing core — reused for accents */
+.gold-glow {
+  box-shadow:
+    0 0 0 1px rgba(255, 194, 51, 0.25),
+    0 0 24px -2px rgba(255, 194, 51, 0.45);
+}
+
+/* subtle radial light for the ink surface */
+.aperture-light {
+  background:
+    radial-gradient(
+      62% 48% at 50% -8%,
+      rgba(255, 194, 51, 0.12) 0%,
+      rgba(255, 194, 51, 0) 60%
+    ),
+    #14131a;
+}
+
+@keyframes pulse-core {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.78;
+    transform: scale(0.94);
+  }
+}
+.animate-core {
+  animation: pulse-core 3.2s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes slide-in-edge {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-slide-edge {
+  animation: slide-in-edge 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+::selection {
+  background: rgba(255, 194, 51, 0.28);
+  color: #fff;
 }

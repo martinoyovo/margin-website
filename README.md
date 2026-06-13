@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Margin — website
 
-## Getting Started
+Marketing site & beta waitlist for **Margin**, a quiet AI agent that lives at
+the edge of your Mac. Built with Next.js 16 (App Router) + Tailwind v4.
 
-First, run the development server:
+> The best ideas were never in the text. They were in the margin.
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Pages
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Route       | Purpose                                            |
+| ----------- | -------------------------------------------------- |
+| `/`         | Landing: hero, the margin story, how-it-works, the Apple-Intelligence contrast, pillars, waitlist |
+| `/download` | App download (waitlist CTA until the `.dmg` is live) |
+| `/pricing`  | Free-in-beta + Pro tiers                            |
+| `/privacy`  | Privacy policy                                      |
+| `/terms`    | Terms of service                                    |
+| `/api/waitlist` | POST `{ email }` — captures a signup            |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Waitlist
 
-## Learn More
+The `/api/waitlist` route is provider-agnostic. Copy `.env.example` to
+`.env.local` and set **one** of:
 
-To learn more about Next.js, take a look at the following resources:
+- `WAITLIST_WEBHOOK_URL` — POSTs `{ email, source, ts }` to Zapier / Make /
+  Google Sheets / your own endpoint. Easiest.
+- `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` — upserts into a `waitlist`
+  table (`create table waitlist (email text primary key, created_at timestamptz default now());`).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+With neither set, signups are logged server-side so the form still works in
+dev. **Set a provider before running ads.**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Before launch — placeholders to fill
 
-## Deploy on Vercel
+- `src/app/download/page.tsx` → `DMG_URL` (the real download link)
+- `src/app/pricing/page.tsx` → real Pro price (currently `$—`)
+- `src/app/privacy/page.tsx` + `src/app/terms/page.tsx` → `[LEGAL ENTITY]`,
+  `[CONTACT EMAIL]`, `[JURISDICTION]` — and have a lawyer review
+- `src/app/layout.tsx` → `SITE_URL` (currently `https://margin.app`) and add an
+  OG image at `/public` for social sharing
+- `src/components/Footer.tsx` → real X / email links
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Brand
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Ink `#14131A` + gold `#FFC233`. Newsreader (display) · Inter (body) ·
+JetBrains Mono (labels). The aperture logo lives in `src/components/Logo.tsx`.
+
+## Deploy
+
+Optimized for Vercel — push to GitHub, import the repo, set the env var(s)
+above. `npm run build` must pass (it does).
