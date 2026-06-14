@@ -98,10 +98,6 @@ export function AgentDemo() {
           className="pointer-events-none absolute -bottom-16 right-10 h-44 w-44 rounded-full bg-gold/15 blur-3xl"
         />
       </div>
-
-      <p className="mx-auto mt-6 max-w-md text-center font-mono text-xs text-faint">
-        A live recreation of the Margin overlay. Examples for illustration.
-      </p>
     </div>
   );
 }
