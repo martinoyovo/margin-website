@@ -180,11 +180,33 @@ function initialPositions(): Map<string, Pt> {
 }
 
 function MapPanel() {
+  const viewportRef = useRef<HTMLDivElement>(null);
   const areaRef = useRef<HTMLDivElement>(null);
   const drag = useRef<Drag | null>(null);
   const [positions, setPositions] = useState<Map<string, Pt>>(initialPositions);
   const [pan, setPan] = useState<Pt>({ x: 0, y: 0 });
   const [grabbing, setGrabbing] = useState(false);
+  // The graph lives in a fixed STAGE_W×STAGE_H coordinate space; scale it down
+  // to fit narrow (mobile) viewports so nothing gets clipped off the edge, and
+  // keep it horizontally centered when the viewport is wider than the stage.
+  const [scale, setScale] = useState(1);
+  const [vw, setVw] = useState(STAGE_W);
+
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+    const measure = () => {
+      const w = el.clientWidth;
+      setVw(w);
+      setScale(Math.min(1, w / STAGE_W));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const offsetX = Math.max(0, (vw - STAGE_W * scale) / 2);
 
   const center = (title: string): Pt => {
     const p = positions.get(title) ?? { x: 0, y: 0 };
@@ -206,8 +228,10 @@ function MapPanel() {
   const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const d = drag.current;
     if (!d) return;
-    const dx = e.clientX - d.mx0;
-    const dy = e.clientY - d.my0;
+    // pointer deltas are in screen px; convert to stage-space (the stage is
+    // visually scaled by `scale`) so a card tracks the finger 1:1.
+    const dx = (e.clientX - d.mx0) / scale;
+    const dy = (e.clientY - d.my0) / scale;
     if (d.kind === "pan") {
       setPan({ x: d.px0 + dx, y: d.py0 + dy });
     } else {
@@ -247,24 +271,31 @@ function MapPanel() {
           <span className="font-mono text-[11px] text-faint">↗</span>
         </div>
         <div
-          ref={areaRef}
-          onPointerDown={onAreaDown}
-          onPointerMove={onMove}
-          onPointerUp={onUp}
-          onPointerCancel={onUp}
-          className="relative mx-auto select-none"
-          style={{
-            width: STAGE_W,
-            height: STAGE_H,
-            maxWidth: "100%",
-            touchAction: "none",
-            cursor: grabbing ? "grabbing" : "grab",
-          }}
+          ref={viewportRef}
+          className="relative w-full overflow-hidden"
+          style={{ height: STAGE_H * scale }}
         >
           <div
-            className="absolute inset-0"
-            style={{ transform: `translate(${pan.x}px, ${pan.y}px)` }}
+            ref={areaRef}
+            onPointerDown={onAreaDown}
+            onPointerMove={onMove}
+            onPointerUp={onUp}
+            onPointerCancel={onUp}
+            className="absolute top-0 select-none"
+            style={{
+              left: offsetX,
+              width: STAGE_W,
+              height: STAGE_H,
+              transform: `scale(${scale})`,
+              transformOrigin: "top left",
+              touchAction: "none",
+              cursor: grabbing ? "grabbing" : "grab",
+            }}
           >
+            <div
+              className="absolute inset-0"
+              style={{ transform: `translate(${pan.x}px, ${pan.y}px)` }}
+            >
             {/* edges */}
             <svg
               width={STAGE_W}
@@ -322,6 +353,7 @@ function MapPanel() {
                 </div>
               );
             })}
+            </div>
           </div>
         </div>
       </div>

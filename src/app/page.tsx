@@ -326,7 +326,7 @@ function Difference() {
           {/* head-to-head header */}
           <div className="grid grid-cols-[1.1fr_1fr_1fr] items-stretch border-b border-line">
             <div className="bg-surface" />
-            <div className="flex flex-col items-center gap-2 bg-surface px-5 py-6 text-center">
+            <div className="flex flex-col items-center gap-2 bg-surface px-3 py-6 text-center sm:px-5">
               <div className="flex h-14 items-center justify-center">
                 <Image
                   src="/brand/apps/apple-intelligence-mono.png"
@@ -343,7 +343,7 @@ function Difference() {
                 built into Notes
               </span>
             </div>
-            <div className="flex flex-col items-center gap-2 bg-gold/[0.07] px-5 py-6 text-center">
+            <div className="flex flex-col items-center gap-2 bg-gold/[0.07] px-3 py-6 text-center sm:px-5">
               <div className="flex h-14 items-center justify-center">
                 <span className="flex h-[52px] w-[52px] items-center justify-center rounded-[15px] border border-gold/40 bg-ink-soft shadow-[0_0_30px_-3px_rgba(255,194,51,0.7),0_0_0_1px_rgba(255,194,51,0.18)]">
                   <Logo size={48} ring="#f7f6f3" />
@@ -360,15 +360,17 @@ function Difference() {
               key={label}
               className="grid grid-cols-[1.1fr_1fr_1fr] items-center"
             >
-              <div className="p-5 text-sm text-faint">{label}</div>
+              <div className="p-3 text-xs text-faint sm:p-5 sm:text-sm">
+                {label}
+              </div>
               <div
-                className={`p-5 text-center text-[15px] text-muted ${
+                className={`p-3 text-center text-[13px] text-muted sm:p-5 sm:text-[15px] ${
                   i % 2 ? "bg-surface" : ""
                 }`}
               >
                 {apple}
               </div>
-              <div className="p-5 text-center text-[15px] font-medium text-paper bg-gold/[0.04]">
+              <div className="p-3 text-center text-[13px] font-medium text-paper bg-gold/[0.04] sm:p-5 sm:text-[15px]">
                 {margin}
               </div>
             </div>
