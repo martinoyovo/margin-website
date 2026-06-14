@@ -440,7 +440,7 @@ function TasksPanel() {
       <Prompt>Pull the tasks out of this note.</Prompt>
       <div className="flex items-start gap-2.5">
         <Spark />
-        <div className="w-full">
+        <div className="min-w-0 flex-1">
           <p className="text-[14px] text-paper">
             Found 4 tasks. Added them as a checklist.
           </p>
@@ -471,7 +471,7 @@ function RemindPanel() {
       <Prompt>Set these up for me.</Prompt>
       <div className="flex items-start gap-2.5">
         <Spark />
-        <div className="w-full">
+        <div className="min-w-0 flex-1">
           <p className="text-[14px] text-paper">
             Caught two things to schedule from this note.
           </p>
