@@ -23,6 +23,8 @@
   --color-card: #1e1c26;
   /* accent for text/marks: gold on dark, ink on light (brand inversion) */
   --color-accent: #ffc233;
+  /* bolder rule for full-width section dividers (the "ruled paper" look) */
+  --color-divider: rgba(255, 255, 255, 0.92);
 
   --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
@@ -57,6 +59,7 @@ html.light {
   --color-line-2: #d8d6de;
   /* gold stays the brand gold (#ffc233) for fills/core; text accent inverts to ink */
   --color-accent: #14131a;
+  --color-divider: #d7d5dd;
   --aperture-gold: rgba(255, 194, 51, 0.05);
   /* product-demo (knowledge graph) light palette */
   --graph-canvas: #eceef1;
