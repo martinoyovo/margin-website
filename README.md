@@ -29,8 +29,8 @@ npm run build    # production build
 The `/api/waitlist` route uses **Resend** to both store signups (Audience) and
 send a branded confirmation email. Copy `.env.example` to `.env.local` and set:
 
-- `RESEND_API_KEY` — server-side secret.
-- `RESEND_AUDIENCE_ID` — Resend dashboard → Audiences.
+- `RESEND_API_KEY` — server-side secret (the only required var).
+- `RESEND_AUDIENCE_ID` — optional; auto-detected from the API key if omitted.
 - `RESEND_FROM` — from address on a verified sending domain (e.g.
   `Margin <team@margin9.com>`). Test with `onboarding@resend.dev` until
   `margin9.com` is verified.

@@ -6,16 +6,33 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  * Waitlist capture + confirmation, powered by Resend.
  *
  * Env vars (set in Vercel):
- *   RESEND_API_KEY       required to do anything (else the signup is just logged)
- *   RESEND_AUDIENCE_ID   the Resend audience signups are added to
- *   RESEND_FROM          optional from address, e.g. "Margin <team@margin9.com>"
- *                        (defaults below; must be a verified sending domain)
+ *   RESEND_API_KEY       required. Without it, the signup is just logged.
+ *   RESEND_AUDIENCE_ID   optional. If omitted, we auto-detect the default
+ *                        audience from the API key, so there's no ID to hunt.
+ *   RESEND_FROM          optional from address (default below; must be on a
+ *                        verified Resend sending domain).
  *
  * On submit we add the email to the audience (capture) and send a branded
  * confirmation email. The confirmation is best-effort: if it fails (e.g. the
  * domain isn't verified yet) the signup still succeeds.
  */
 const FROM = process.env.RESEND_FROM || "Margin <team@margin9.com>";
+
+// Resolved once per server instance so we don't list audiences on every call.
+let cachedAudienceId: string | null | undefined;
+
+async function getAudienceId(authHeaders: Record<string, string>): Promise<string | null> {
+  if (process.env.RESEND_AUDIENCE_ID) return process.env.RESEND_AUDIENCE_ID;
+  if (cachedAudienceId !== undefined) return cachedAudienceId;
+  try {
+    const r = await fetch("https://api.resend.com/audiences", { headers: authHeaders });
+    const data = r.ok ? await r.json() : null;
+    cachedAudienceId = data?.data?.[0]?.id ?? null;
+  } catch {
+    cachedAudienceId = null;
+  }
+  return cachedAudienceId ?? null;
+}
 
 export async function POST(req: Request) {
   let email = "";
@@ -34,8 +51,6 @@ export async function POST(req: Request) {
   }
 
   const key = process.env.RESEND_API_KEY;
-  const audienceId = process.env.RESEND_AUDIENCE_ID;
-
   if (!key) {
     console.log(`[waitlist] ${email} @ ${new Date().toISOString()} (Resend not configured)`);
     return NextResponse.json({ ok: true });
@@ -46,9 +61,10 @@ export async function POST(req: Request) {
     "Content-Type": "application/json",
   };
 
-  // 1) Capture: add the contact to the audience.
-  if (audienceId) {
-    try {
+  // 1) Capture: add the contact to the audience (auto-detected if not set).
+  try {
+    const audienceId = await getAudienceId(authHeaders);
+    if (audienceId) {
       const r = await fetch(
         `https://api.resend.com/audiences/${audienceId}/contacts`,
         {
@@ -57,18 +73,19 @@ export async function POST(req: Request) {
           body: JSON.stringify({ email, unsubscribed: false }),
         },
       );
-      // Resend returns 201 on create and is idempotent for existing contacts;
-      // 409 (already a contact) is fine.
+      // 201 on create; idempotent for existing contacts; 409 = already there.
       if (!r.ok && r.status !== 409) {
         throw new Error(`resend contacts ${r.status} ${await r.text()}`);
       }
-    } catch (err) {
-      console.error("[waitlist] capture failed:", err);
-      return NextResponse.json(
-        { ok: false, error: "We couldn't save that just now. Please try again." },
-        { status: 502 },
-      );
+    } else {
+      console.error("[waitlist] no Resend audience found; contact not stored");
     }
+  } catch (err) {
+    console.error("[waitlist] capture failed:", err);
+    return NextResponse.json(
+      { ok: false, error: "We couldn't save that just now. Please try again." },
+      { status: 502 },
+    );
   }
 
   // 2) Confirmation email (best-effort); never blocks the signup.
