@@ -24,18 +24,19 @@ npm run build    # production build
 | `/terms`    | Terms of service                                    |
 | `/api/waitlist` | POST `{ email }`: captures a signup             |
 
-## Waitlist
+## Waitlist (Resend)
 
-The `/api/waitlist` route is provider-agnostic. Copy `.env.example` to
-`.env.local` and set **one** of:
+The `/api/waitlist` route uses **Resend** to both store signups (Audience) and
+send a branded confirmation email. Copy `.env.example` to `.env.local` and set:
 
-- `WAITLIST_WEBHOOK_URL`: POSTs `{ email, source, ts }` to Zapier / Make /
-  Google Sheets / your own endpoint. Easiest.
-- `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`: upserts into a `waitlist`
-  table (`create table waitlist (email text primary key, created_at timestamptz default now());`).
+- `RESEND_API_KEY` — server-side secret.
+- `RESEND_AUDIENCE_ID` — Resend dashboard → Audiences.
+- `RESEND_FROM` — from address on a verified sending domain (e.g.
+  `Margin <hello@margin9.com>`). Test with `onboarding@resend.dev` until
+  `margin9.com` is verified.
 
-With neither set, signups are logged server-side so the form still works in
-dev. **Set a provider before running ads.**
+Without `RESEND_API_KEY`, signups are logged server-side so the form still
+works in dev. The confirmation email is best-effort and never blocks a signup.
 
 ## Before launch: placeholders to fill
 
@@ -43,8 +44,7 @@ dev. **Set a provider before running ads.**
 - `src/app/pricing/page.tsx` → real Pro price (currently `TBA`)
 - `src/app/privacy/page.tsx` + `src/app/terms/page.tsx` → `[LEGAL ENTITY]`,
   `[CONTACT EMAIL]`, `[JURISDICTION]`, and have a lawyer review
-- `src/app/layout.tsx` → `SITE_URL` (currently `https://margin.app`) and add an
-  OG image at `/public` for social sharing
+- Verify `margin9.com` as a Resend sending domain (DKIM/SPF DNS at Hostinger)
 - `src/components/Footer.tsx` → real X / email links
 
 ## Brand
