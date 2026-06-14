@@ -31,16 +31,22 @@ const kicker = Spectral({
   display: "swap",
 });
 
-const SITE_URL = "https://margin.app";
+const SITE_URL = "https://margin9.com";
+const TITLE = "Margin: Apple Notes, finally powerful";
+const DESCRIPTION =
+  "Margin is the power layer for Apple Notes: real search that understands meaning, connected notes, and one-keystroke actions across Notes, Reminders, and Calendar. For people who live in the Apple ecosystem.";
+const SHARE_DESCRIPTION =
+  "Real search, connected notes, and actions across Notes, Reminders, and Calendar. Apple Notes, finally powerful.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Margin: the AI that thinks in the margin of your notes",
+    default: TITLE,
     template: "%s · Margin",
   },
-  description:
-    "Apple gave your notes a better pen. Margin gives them a mind. A quiet AI agent that reads what you're working on and thinks with you. One keystroke, anywhere on your Mac.",
+  description: DESCRIPTION,
+  applicationName: "Margin",
+  category: "productivity",
   keywords: [
     "Margin",
     "AI notes",
@@ -48,20 +54,28 @@ export const metadata: Metadata = {
     "AI assistant macOS",
     "second brain",
     "marginalia",
+    "knowledge graph notes",
   ],
+  alternates: { canonical: "/" },
+  authors: [{ name: "Margin" }],
+  creator: "Margin",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   openGraph: {
-    title: "Margin: the AI that thinks in the margin of your notes",
-    description:
-      "The best ideas were never in the text. They were in the margin. A quiet AI agent for your Mac.",
+    title: TITLE,
+    description: SHARE_DESCRIPTION,
     url: SITE_URL,
     siteName: "Margin",
     type: "website",
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Margin: the AI that thinks in the margin of your notes",
-    description:
-      "The best ideas were never in the text. They were in the margin.",
+    title: TITLE,
+    description: SHARE_DESCRIPTION,
   },
   icons: {
     icon: "/brand/icon-master.svg",
@@ -74,12 +88,27 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const themeScript = `(function(){try{var p=localStorage.getItem('theme')||'dark';var s=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(p==='auto'?s:p);}catch(e){document.documentElement.classList.add('dark');}})();`;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Margin",
+    applicationCategory: "ProductivityApplication",
+    operatingSystem: "macOS",
+    description: DESCRIPTION,
+    url: SITE_URL,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable} ${kicker.variable} antialiased`}
       >
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         {children}
       </body>
     </html>

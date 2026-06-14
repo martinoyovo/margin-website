@@ -12,13 +12,13 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Story />
         <Problem />
         <Ecosystem />
         <Outcomes />
         <HowItWorks />
         <Difference />
         <Pillars />
+        <Story />
         <FinalCta />
       </main>
       <Footer />
@@ -31,19 +31,21 @@ function Hero() {
   return (
     <section className="aperture-light relative overflow-hidden px-6 pb-24 pt-36 sm:pt-44">
       <div className="mx-auto max-w-3xl text-center">
-        <p className="eyebrow animate-rise mb-8">A quiet AI agent for your Mac</p>
+        <p className="eyebrow animate-rise mb-8">
+          For people who live in Apple Notes
+        </p>
         <h1 className="animate-rise font-serif text-[2.7rem] font-light leading-[1.08] tracking-[-0.02em] text-paper sm:text-6xl">
-          The best ideas were never
-          <br className="hidden sm:block" /> in the text. They were in the{" "}
-          <span className="italic text-accent">margin.</span>
+          Apple Notes,
+          <br className="hidden sm:block" /> finally{" "}
+          <span className="italic text-accent">powerful.</span>
         </h1>
         <p
           className="animate-rise mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted"
           style={{ animationDelay: "80ms" }}
         >
-          Apple gave your notes a better pen. Margin gives them a mind. An AI
-          agent that reads what you&apos;re working on and thinks with you. One
-          keystroke, anywhere on your screen.
+          Real search, connected notes, and one-keystroke actions across your
+          Notes, Reminders, and Calendar. Margin is the agent that makes the
+          Apple ecosystem work the way you always wanted.
         </p>
         <div
           className="animate-rise mt-10 flex justify-center"
@@ -67,7 +69,7 @@ function Hero() {
 /* ── The margin story ─────────────────────────────────────────────────────── */
 function Story() {
   return (
-    <section id="story" className="border-t border-line px-6 py-28">
+    <section id="story" className="border-t border-divider px-6 py-28">
       <div className="mx-auto max-w-2xl text-center">
         <p className="eyebrow mb-6">Why &ldquo;Margin&rdquo;</p>
         <h2 className="font-serif text-3xl font-light leading-snug tracking-[-0.01em] text-paper sm:text-[2.5rem]">
@@ -101,8 +103,8 @@ function Story() {
 function Problem() {
   const pains = [
     {
-      t: "Search that misses the point.",
-      d: "Apple Notes matches keywords, not meaning. Forget the exact words you used and the note is gone for good.",
+      t: "You can’t find anything.",
+      d: "Apple Notes search matches exact words, not meaning. You know the note is in there. You just can’t find it.",
     },
     {
       t: "No way to see how things connect.",
@@ -118,7 +120,7 @@ function Problem() {
     },
   ];
   return (
-    <section className="border-t border-line px-6 py-28">
+    <section className="border-t border-divider px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">The problem</p>
@@ -164,7 +166,7 @@ function Ecosystem() {
     },
   ];
   return (
-    <section className="border-t border-line px-6 py-28">
+    <section className="border-t border-divider px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">Works with your stack</p>
@@ -229,7 +231,7 @@ function Outcomes() {
     },
   ];
   return (
-    <section className="border-t border-line px-6 py-28">
+    <section className="border-t border-divider px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">What it’s for</p>
@@ -273,7 +275,7 @@ function HowItWorks() {
     },
   ];
   return (
-    <section id="how" className="border-t border-line px-6 py-28">
+    <section id="how" className="border-t border-divider px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">The moment</p>
@@ -311,7 +313,7 @@ function Difference() {
     ["The feeling", "“Fix my grammar”", "“Think with me”"],
   ];
   return (
-    <section id="difference" className="border-t border-line px-6 py-28">
+    <section id="difference" className="border-t border-divider px-6 py-28">
       <div className="mx-auto max-w-4xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">Apple Intelligence vs. Margin</p>
@@ -394,7 +396,7 @@ function Pillars() {
     },
   ];
   return (
-    <section className="border-t border-line px-6 py-28">
+    <section className="border-t border-divider px-6 py-28">
       <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-3">
         {pillars.map((p) => (
           <div key={p.t}>
@@ -411,7 +413,7 @@ function Pillars() {
 /* ── Final CTA ────────────────────────────────────────────────────────────── */
 function FinalCta() {
   return (
-    <section className="border-t border-line px-6 py-32">
+    <section className="border-t border-divider px-6 py-32">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="font-serif text-4xl font-light leading-tight tracking-[-0.01em] text-paper sm:text-5xl">
           Bring your notes

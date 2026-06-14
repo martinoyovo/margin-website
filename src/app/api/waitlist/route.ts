@@ -3,15 +3,20 @@ import { NextResponse } from "next/server";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Waitlist capture. Provider-agnostic. Wire one of these env vars at launch:
+ * Waitlist capture. Provider-agnostic. Wire one of these at launch (checked in
+ * this order):
+ *
+ *   HUBSPOT_PORTAL_ID + HUBSPOT_FORM_GUID
+ *                          submits to HubSpot's Forms API so each signup becomes
+ *                          a contact (no secret key needed). Recommended.
  *
  *   WAITLIST_WEBHOOK_URL   POSTs { email, source, ts } as JSON (Zapier / Make /
- *                          Google Sheets / your own endpoint). Easiest.
+ *                          Google Sheets / your own endpoint).
  *
  *   SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
  *                          inserts { email } into a `waitlist` table via REST.
  *
- * With neither set, the email is logged server-side so the form still works in
+ * With none set, the email is logged server-side so the form still works in
  * development. Set a provider before running ads so signups are not lost.
  */
 export async function POST(req: Request) {
@@ -33,11 +38,26 @@ export async function POST(req: Request) {
   const ts = new Date().toISOString();
 
   try {
+    const hsPortal = process.env.HUBSPOT_PORTAL_ID;
+    const hsForm = process.env.HUBSPOT_FORM_GUID;
     const webhook = process.env.WAITLIST_WEBHOOK_URL;
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    if (webhook) {
+    if (hsPortal && hsForm) {
+      const r = await fetch(
+        `https://api.hsforms.com/submissions/v3/integration/submit/${hsPortal}/${hsForm}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fields: [{ objectTypeId: "0-1", name: "email", value: email }],
+            context: { pageUri: "https://margin9.com", pageName: "Margin waitlist" },
+          }),
+        },
+      );
+      if (!r.ok) throw new Error(`hubspot ${r.status}`);
+    } else if (webhook) {
       const r = await fetch(webhook, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

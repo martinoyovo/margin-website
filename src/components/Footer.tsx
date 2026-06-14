@@ -4,7 +4,7 @@ import { ThemeToggle } from "./ThemeToggle";
 
 export function Footer() {
   return (
-    <footer className="border-t border-line px-6 py-14">
+    <footer className="border-t border-divider px-6 py-14">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-xs">
           <div className="flex items-center gap-2.5">
