@@ -1,7 +1,11 @@
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WaitlistForm } from "@/components/WaitlistForm";
+import Image from "next/image";
 import { OverlayMock } from "@/components/OverlayMock";
+import { AgentDemo } from "@/components/AgentDemo";
+import { Logo } from "@/components/Logo";
+import { SparkleGlyph } from "@/components/AppIcons";
 
 export default function Home() {
   return (
@@ -10,6 +14,9 @@ export default function Home() {
       <main>
         <Hero />
         <Story />
+        <Problem />
+        <Ecosystem />
+        <Outcomes />
         <HowItWorks />
         <Difference />
         <Pillars />
@@ -49,10 +56,10 @@ function Hero() {
       </div>
 
       <div
-        className="animate-rise mt-20 px-2"
+        className="animate-rise mt-16"
         style={{ animationDelay: "240ms" }}
       >
-        <OverlayMock />
+        <AgentDemo />
       </div>
     </section>
   );
@@ -91,6 +98,162 @@ function Story() {
   );
 }
 
+/* ── The problem ──────────────────────────────────────────────────────────── */
+function Problem() {
+  const pains = [
+    {
+      t: "Search that misses the point.",
+      d: "Apple Notes matches keywords, not meaning. Forget the exact words you used and the note is gone for good.",
+    },
+    {
+      t: "No way to see how things connect.",
+      d: "Hundreds of notes, zero links between them. The ideas that belong together never meet.",
+    },
+    {
+      t: "You can’t act on them.",
+      d: "A note full of tasks, dates, and people just sits there. Nothing becomes a reminder, an event, or a next step.",
+    },
+    {
+      t: "Apple Intelligence only rewrites.",
+      d: "It polishes the sentence in front of you. It can’t reason across your notes or do anything with them.",
+    },
+  ];
+  return (
+    <section className="border-t border-white/[0.06] px-6 py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow mb-6">The problem</p>
+          <h2 className="font-serif text-3xl font-light tracking-[-0.01em] text-paper sm:text-[2.5rem]">
+            Apple Notes is where notes go to die.
+          </h2>
+          <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-muted">
+            You write things down and never see them again. Four reasons why.
+          </p>
+        </div>
+        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-2">
+          {pains.map((p) => (
+            <div key={p.t} className="bg-ink p-8">
+              <h3 className="text-lg font-medium text-paper">{p.t}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted">
+                {p.d}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── Ecosystem / works-with ───────────────────────────────────────────────── */
+function Ecosystem() {
+  const apps = [
+    {
+      icon: "/brand/apps/notes.png",
+      name: "Apple Notes",
+      d: "Reads and understands every note you’ve written, going back years.",
+    },
+    {
+      icon: "/brand/apps/reminders.png",
+      name: "Reminders",
+      d: "Turns what you wrote into reminders, so nothing slips through.",
+    },
+    {
+      icon: "/brand/apps/calendar.png",
+      name: "Calendar",
+      d: "Pulls the dates out of your notes and puts them on your calendar.",
+    },
+  ];
+  return (
+    <section className="border-t border-white/[0.06] px-6 py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow mb-6">Works with your stack</p>
+          <h2 className="font-serif text-3xl font-light tracking-[-0.01em] text-paper sm:text-[2.5rem]">
+            Made for people who live in Apple Notes.
+          </h2>
+          <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-muted">
+            Margin isn’t another app to migrate to. It works on top of the
+            Notes, Reminders, and Calendar you already use, and finally makes
+            them talk to each other.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-5 sm:grid-cols-3">
+          {apps.map((a) => (
+            <div
+              key={a.name}
+              className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7"
+            >
+              <Image
+                src={a.icon}
+                alt={`${a.name} app icon`}
+                width={52}
+                height={52}
+                className="rounded-[12px]"
+              />
+              <h3 className="mt-5 text-lg font-medium text-paper">{a.name}</h3>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-muted">
+                {a.d}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <p className="mx-auto mt-10 flex max-w-xl items-center justify-center gap-2 text-center text-sm text-faint">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold/70" />
+          Nothing to import or move. Your notes stay exactly where they are.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ── Outcomes / use-cases ─────────────────────────────────────────────────── */
+function Outcomes() {
+  const outcomes = [
+    {
+      t: "Find the note you can’t find.",
+      d: "Search the way you remember, not by keyword. Ask “where did I write about the visa paperwork?” and Margin surfaces it, even if you never used those words.",
+    },
+    {
+      t: "Connect the dots across everything.",
+      d: "Margin reads the whole picture, not one page. It pulls ideas scattered across hundreds of notes into a single, straight answer.",
+    },
+    {
+      t: "Stop paying the copy-paste tax.",
+      d: "No more shuttling text into a chatbot and re-explaining the context every time. Margin is already there, already reading what’s in front of you.",
+    },
+    {
+      t: "Turn notes into a first draft.",
+      d: "Hand it the scattered thoughts you already wrote and get back a draft grounded in your own words, not a stranger’s.",
+    },
+  ];
+  return (
+    <section className="border-t border-white/[0.06] px-6 py-28">
+      <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow mb-6">What it’s for</p>
+          <h2 className="font-serif text-3xl font-light tracking-[-0.01em] text-paper sm:text-[2.5rem]">
+            Your notes, finally working for you.
+          </h2>
+        </div>
+        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-2">
+          {outcomes.map((o) => (
+            <div key={o.t} className="bg-ink p-8">
+              <span className="animate-core inline-block h-3 w-3 rounded-full bg-gold gold-glow" />
+              <h3 className="mt-5 text-lg font-medium text-paper">{o.t}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted">
+                {o.d}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ── How it works (the magic moment) ──────────────────────────────────────── */
 function HowItWorks() {
   const steps = [
@@ -119,6 +282,9 @@ function HowItWorks() {
             It was already reading. Just ask.
           </h2>
         </div>
+        <div className="mt-14">
+          <OverlayMock />
+        </div>
         <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-3">
           {steps.map((s) => (
             <div key={s.n} className="bg-ink p-8">
@@ -140,6 +306,7 @@ function Difference() {
   const rows: [string, string, string][] = [
     ["What it is", "A writing feature", "A thinking agent"],
     ["What it does", "Rewrites this sentence", "Reasons across all your notes"],
+    ["Works across", "Apple Notes only", "Notes, Reminders & Calendar"],
     ["Where it lives", "Buried in one app’s menu", "One keystroke, over any app"],
     ["The mind", "Generic, on-device tier", "Frontier-grade reasoning"],
     ["The feeling", "“Fix my grammar”", "“Think with me”"],
@@ -155,27 +322,44 @@ function Difference() {
         </div>
 
         <div className="mt-14 overflow-hidden rounded-2xl border border-white/[0.08]">
-          <div className="grid grid-cols-[1.1fr_1fr_1fr] border-b border-white/[0.08] bg-white/[0.03]">
-            <div className="p-5" />
-            <div className="p-5 text-center font-mono text-xs uppercase tracking-wider text-faint">
-              Built-in AI
+          {/* head-to-head header */}
+          <div className="grid grid-cols-[1.1fr_1fr_1fr] items-stretch border-b border-white/[0.08]">
+            <div className="bg-white/[0.02]" />
+            <div className="flex flex-col items-center gap-2 bg-white/[0.02] px-5 py-6 text-center">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-muted">
+                <SparkleGlyph size={16} />
+              </span>
+              <span className="text-sm font-medium text-muted">
+                Apple Intelligence
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-faint">
+                built into Notes
+              </span>
             </div>
-            <div className="p-5 text-center font-mono text-xs uppercase tracking-wider text-gold">
-              Margin
+            <div className="flex flex-col items-center gap-2 bg-gold/[0.05] px-5 py-6 text-center">
+              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-gold/30 bg-gold/[0.08]">
+                <Logo size={20} />
+              </span>
+              <span className="text-sm font-medium text-paper">Margin</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-gold/80">
+                the agent
+              </span>
             </div>
           </div>
           {rows.map(([label, apple, margin], i) => (
             <div
               key={label}
-              className={`grid grid-cols-[1.1fr_1fr_1fr] items-center ${
-                i % 2 ? "bg-white/[0.015]" : ""
-              }`}
+              className="grid grid-cols-[1.1fr_1fr_1fr] items-center"
             >
               <div className="p-5 text-sm text-faint">{label}</div>
-              <div className="p-5 text-center text-[15px] text-muted">
+              <div
+                className={`p-5 text-center text-[15px] text-muted ${
+                  i % 2 ? "bg-white/[0.015]" : ""
+                }`}
+              >
                 {apple}
               </div>
-              <div className="p-5 text-center text-[15px] font-medium text-paper">
+              <div className="p-5 text-center text-[15px] font-medium text-paper bg-gold/[0.04]">
                 {margin}
               </div>
             </div>

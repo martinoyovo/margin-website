@@ -53,14 +53,19 @@ export function OverlayMock() {
               What did I decide here?
             </div>
 
-            {/* answer, with the gold core thinking */}
+            {/* answer, pulled from the note */}
             <div className="mt-3 flex gap-2">
-              <span className="animate-core mt-1 h-2 w-2 shrink-0 rounded-full bg-gold gold-glow" />
-              <div className="space-y-1.5">
-                <div className="h-2 w-40 rounded-full bg-gold/30" />
-                <div className="h-2 w-32 rounded-full bg-white/12" />
-                <div className="h-2 w-36 rounded-full bg-white/12" />
-                <div className="h-2 w-24 rounded-full bg-white/12" />
+              <span className="animate-core mt-0.5 shrink-0 text-[12px] leading-none text-gold">
+                ✦
+              </span>
+              <div>
+                <p className="text-[12px] leading-relaxed text-paper">
+                  You chose the 12-month lease at $2,400. The early-exit clause
+                  on the short one sealed it.
+                </p>
+                <p className="mt-1.5 font-mono text-[9px] text-gold/80">
+                  From this note · Mar 3
+                </p>
               </div>
             </div>
 

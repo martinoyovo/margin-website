@@ -62,7 +62,9 @@ function FooterCol({
 }) {
   return (
     <div>
-      <h4 className="eyebrow mb-3.5 !text-faint">{title}</h4>
+      <h4 className="mb-3.5 font-mono text-[11px] uppercase tracking-wider text-faint">
+        {title}
+      </h4>
       <ul className="space-y-2.5">
         {links.map(([label, href]) => (
           <li key={label}>

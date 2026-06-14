@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Newsreader, JetBrains_Mono } from "next/font/google";
+import { Inter, Newsreader, JetBrains_Mono, Spectral } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -20,6 +20,14 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   weight: ["400", "500"],
+  display: "swap",
+});
+
+const kicker = Spectral({
+  variable: "--font-kicker",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -67,7 +75,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable} antialiased`}
+        className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable} ${kicker.variable} antialiased`}
       >
         {children}
       </body>
