@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
 
 /**
@@ -30,9 +30,11 @@ const CONTEXT: Record<TabId, string> = {
 
 export function AgentDemo() {
   const [tab, setTab] = useState<TabId>("map");
+  const [paused, setPaused] = useState(false);
 
-  // auto-advance through capabilities
+  // auto-advance through capabilities (paused while the user interacts)
   useEffect(() => {
+    if (paused) return;
     const order: TabId[] = ["map", "ask", "tasks", "remind", "recap"];
     const dwell = tab === "map" ? 7000 : 5600;
     const t = setTimeout(() => {
@@ -40,12 +42,16 @@ export function AgentDemo() {
       setTab(next);
     }, dwell);
     return () => clearTimeout(t);
-  }, [tab]);
+  }, [tab, paused]);
 
   return (
     <div className="mx-auto w-full max-w-3xl">
       {/* the overlay panel, forced dark (a depiction of the dark macOS app) */}
-      <div className="relative overflow-hidden rounded-2xl border border-line bg-card shadow-[0_8px_40px_-12px_rgba(0,0,0,0.25)]">
+      <div
+        className="relative overflow-hidden rounded-2xl border border-line bg-card shadow-[0_8px_40px_-12px_rgba(0,0,0,0.25)]"
+        onPointerEnter={() => setPaused(true)}
+        onPointerLeave={() => setPaused(false)}
+      >
         {/* chrome */}
         <div className="flex items-center gap-2.5 border-b border-line px-4 py-3">
           <Logo size={18} />
@@ -151,22 +157,76 @@ function folderColors(hue: number) {
   };
 }
 
-function MapPanel() {
-  const cx = STAGE_W / 2;
-  const cy = STAGE_H / 2;
-  const layout = GRAPH_NODES.map((n, i) => {
+type Pt = { x: number; y: number };
+type Drag =
+  | { kind: "card"; id: string; mx0: number; my0: number; x0: number; y0: number }
+  | { kind: "pan"; mx0: number; my0: number; px0: number; py0: number };
+
+const CX = STAGE_W / 2;
+const CY = STAGE_H / 2;
+
+function initialPositions(): Map<string, Pt> {
+  const m = new Map<string, Pt>();
+  m.set(GRAPH_SOURCE.title, { x: CX - CARD_W / 2, y: CY - CARD_H / 2 });
+  GRAPH_NODES.forEach((n, i) => {
     const angle = (-90 + i * (360 / GRAPH_NODES.length)) * (Math.PI / 180);
     const radius = 132 + (1 - n.strength) * 26;
-    return {
-      ...n,
-      x: cx + Math.cos(angle) * radius - CARD_W / 2,
-      y: cy + Math.sin(angle) * radius - CARD_H / 2,
-      ccx: cx + Math.cos(angle) * radius,
-      ccy: cy + Math.sin(angle) * radius,
-    };
+    m.set(n.title, {
+      x: CX + Math.cos(angle) * radius - CARD_W / 2,
+      y: CY + Math.sin(angle) * radius - CARD_H / 2,
+    });
   });
+  return m;
+}
 
-  const srcColors = folderColors(folderHue(GRAPH_SOURCE.folder));
+function MapPanel() {
+  const areaRef = useRef<HTMLDivElement>(null);
+  const drag = useRef<Drag | null>(null);
+  const [positions, setPositions] = useState<Map<string, Pt>>(initialPositions);
+  const [pan, setPan] = useState<Pt>({ x: 0, y: 0 });
+  const [grabbing, setGrabbing] = useState(false);
+
+  const center = (title: string): Pt => {
+    const p = positions.get(title) ?? { x: 0, y: 0 };
+    return { x: p.x + CARD_W / 2, y: p.y + CARD_H / 2 };
+  };
+
+  const onCardDown = (e: React.PointerEvent<HTMLDivElement>, title: string) => {
+    e.stopPropagation();
+    areaRef.current?.setPointerCapture(e.pointerId);
+    const p = positions.get(title) ?? { x: 0, y: 0 };
+    drag.current = { kind: "card", id: title, mx0: e.clientX, my0: e.clientY, x0: p.x, y0: p.y };
+    setGrabbing(true);
+  };
+  const onAreaDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    areaRef.current?.setPointerCapture(e.pointerId);
+    drag.current = { kind: "pan", mx0: e.clientX, my0: e.clientY, px0: pan.x, py0: pan.y };
+    setGrabbing(true);
+  };
+  const onMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d) return;
+    const dx = e.clientX - d.mx0;
+    const dy = e.clientY - d.my0;
+    if (d.kind === "pan") {
+      setPan({ x: d.px0 + dx, y: d.py0 + dy });
+    } else {
+      const id = d.id;
+      const nx = d.x0 + dx;
+      const ny = d.y0 + dy;
+      setPositions((prev) => new Map(prev).set(id, { x: nx, y: ny }));
+    }
+  };
+  const onUp = () => {
+    drag.current = null;
+    setGrabbing(false);
+  };
+
+  const sc = center(GRAPH_SOURCE.title);
+  const cards = [
+    { title: GRAPH_SOURCE.title, folder: GRAPH_SOURCE.folder, source: true, strength: undefined as number | undefined },
+    ...GRAPH_NODES.map((n) => ({ title: n.title, folder: n.folder, source: false, strength: n.strength as number | undefined })),
+  ];
 
   return (
     <div className="flex flex-col gap-3">
@@ -182,82 +242,87 @@ function MapPanel() {
       <div className="overflow-hidden rounded-xl border border-line bg-[var(--graph-canvas)]">
         <div className="flex items-center justify-between px-3 py-2">
           <span className="font-mono text-[11px] text-faint">
-            Knowledge graph · {GRAPH_NODES.length} connections
+            Knowledge graph · {GRAPH_NODES.length} connections · drag to explore
           </span>
           <span className="font-mono text-[11px] text-faint">↗</span>
         </div>
         <div
-          className="relative mx-auto"
-          style={{ width: STAGE_W, height: STAGE_H, maxWidth: "100%" }}
+          ref={areaRef}
+          onPointerDown={onAreaDown}
+          onPointerMove={onMove}
+          onPointerUp={onUp}
+          onPointerCancel={onUp}
+          className="relative mx-auto select-none"
+          style={{
+            width: STAGE_W,
+            height: STAGE_H,
+            maxWidth: "100%",
+            touchAction: "none",
+            cursor: grabbing ? "grabbing" : "grab",
+          }}
         >
-          {/* edges */}
-          <svg
-            className="animate-fade absolute inset-0 h-full w-full"
-            style={{ overflow: "visible" }}
-            viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
-            preserveAspectRatio="xMidYMid meet"
+          <div
+            className="absolute inset-0"
+            style={{ transform: `translate(${pan.x}px, ${pan.y}px)` }}
           >
-            {layout.map((n) => {
-              const strong = n.strength > 0.7;
-              const mx = (cx + n.ccx) / 2;
-              const my = (cy + n.ccy) / 2;
-              const dx = n.ccx - cx;
-              const dy = n.ccy - cy;
-              const d = `M ${cx} ${cy} Q ${mx - dy * 0.22} ${my + dx * 0.22} ${n.ccx} ${n.ccy}`;
+            {/* edges */}
+            <svg
+              width={STAGE_W}
+              height={STAGE_H}
+              viewBox={`0 0 ${STAGE_W} ${STAGE_H}`}
+              className="animate-fade absolute left-0 top-0"
+              style={{ overflow: "visible", pointerEvents: "none" }}
+            >
+              {GRAPH_NODES.map((n) => {
+                const strong = n.strength > 0.7;
+                const cc = center(n.title);
+                const mx = (sc.x + cc.x) / 2;
+                const my = (sc.y + cc.y) / 2;
+                const dx = cc.x - sc.x;
+                const dy = cc.y - sc.y;
+                const d = `M ${sc.x} ${sc.y} Q ${mx - dy * 0.22} ${my + dx * 0.22} ${cc.x} ${cc.y}`;
+                return (
+                  <path
+                    key={n.title}
+                    d={d}
+                    fill="none"
+                    style={{
+                      stroke: strong ? "var(--graph-edge-strong)" : "var(--graph-edge)",
+                    }}
+                    strokeWidth={0.5 + n.strength * 1.6}
+                    strokeDasharray={strong ? undefined : "4,4"}
+                  />
+                );
+              })}
+            </svg>
+
+            {/* cards: drag a card to move it, drag empty space to pan */}
+            {cards.map((c, i) => {
+              const p = positions.get(c.title) ?? { x: 0, y: 0 };
               return (
-                <path
-                  key={n.title}
-                  d={d}
-                  fill="none"
+                <div
+                  key={c.title}
+                  onPointerDown={(e) => onCardDown(e, c.title)}
+                  className="animate-pop absolute"
                   style={{
-                    stroke: strong
-                      ? "var(--graph-edge-strong)"
-                      : "var(--graph-edge)",
+                    left: p.x,
+                    top: p.y,
+                    width: CARD_W,
+                    cursor: grabbing ? "grabbing" : "grab",
+                    animationDelay: c.source ? undefined : `${120 + i * 90}ms`,
                   }}
-                  strokeWidth={0.5 + n.strength * 1.6}
-                  strokeDasharray={strong ? undefined : "4,4"}
-                />
+                >
+                  <GraphCard
+                    title={c.title}
+                    folder={c.folder}
+                    colors={folderColors(folderHue(c.folder))}
+                    source={c.source}
+                    strength={c.strength}
+                  />
+                </div>
               );
             })}
-          </svg>
-
-          {/* source card */}
-          <div
-            className="animate-pop absolute"
-            style={{
-              left: cx - CARD_W / 2,
-              top: cy - CARD_H / 2,
-              width: CARD_W,
-            }}
-          >
-            <GraphCard
-              title={GRAPH_SOURCE.title}
-              folder={GRAPH_SOURCE.folder}
-              colors={srcColors}
-              source
-            />
           </div>
-
-          {/* related cards */}
-          {layout.map((n, i) => (
-            <div
-              key={n.title}
-              className="animate-pop absolute"
-              style={{
-                left: n.x,
-                top: n.y,
-                width: CARD_W,
-                animationDelay: `${120 + i * 90}ms`,
-              }}
-            >
-              <GraphCard
-                title={n.title}
-                folder={n.folder}
-                colors={folderColors(folderHue(n.folder))}
-                strength={n.strength}
-              />
-            </div>
-          ))}
         </div>
       </div>
     </div>
