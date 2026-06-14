@@ -6,15 +6,13 @@ export const metadata: Metadata = {
   description: "The terms for using Margin.",
 };
 
-// TODO before launch: replace [LEGAL ENTITY] / [JURISDICTION] / [CONTACT EMAIL]
-// and have a lawyer review. Plain-language draft, not legal advice.
 export default function TermsPage() {
   return (
     <LegalPage title="Terms of Service" updated="June 2026">
       <p>
-        These terms govern your use of the Margin app and website, operated by{" "}
-        <strong className="text-paper">[LEGAL ENTITY]</strong>. By using Margin,
-        you agree to them.
+        These terms govern your use of the Margin app and website, operated by
+        Margin, an independent project based in California, United States. By
+        using Margin, you agree to them.
       </p>
 
       <LegalSection heading="Beta software">
@@ -58,9 +56,12 @@ export default function TermsPage() {
       <LegalSection heading="Changes &amp; contact">
         <p>
           We may update these terms and will revise the date above. These terms
-          are governed by the laws of{" "}
-          <strong className="text-paper">[JURISDICTION]</strong>. Questions?
-          Contact <strong className="text-paper">[CONTACT EMAIL]</strong>.
+          are governed by the laws of the State of California, United States.
+          Questions? Contact{" "}
+          <a className="text-paper underline" href="mailto:team@margin9.com">
+            team@margin9.com
+          </a>
+          .
         </p>
       </LegalSection>
     </LegalPage>

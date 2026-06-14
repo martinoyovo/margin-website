@@ -6,17 +6,14 @@ export const metadata: Metadata = {
   description: "How Margin handles your data. Your notes are yours, local-first by design.",
 };
 
-// TODO before launch: replace [LEGAL ENTITY] and [CONTACT EMAIL], and have a
-// lawyer review. This is a plain-language draft, not legal advice.
 export default function PrivacyPage() {
   return (
     <LegalPage title="Privacy Policy" updated="June 2026">
       <p>
         Margin is built on a simple principle: your notes are yours. This policy
         explains, in plain language, what the Margin app and this website do and
-        don&apos;t collect. Margin is operated by{" "}
-        <strong className="text-paper">[LEGAL ENTITY]</strong> (&ldquo;we&rdquo;,
-        &ldquo;us&rdquo;).
+        don&apos;t collect. Margin (&ldquo;we&rdquo;, &ldquo;us&rdquo;) is an
+        independent project based in California, United States.
       </p>
 
       <LegalSection heading="Your notes stay on your device">
@@ -64,7 +61,21 @@ export default function PrivacyPage() {
         <p>
           You can unsubscribe from emails at any time, and you can request
           deletion of your account and associated data by contacting us at{" "}
-          <strong className="text-paper">[CONTACT EMAIL]</strong>.
+          <a className="text-paper underline" href="mailto:team@margin9.com">team@margin9.com</a>.
+        </p>
+      </LegalSection>
+
+      <LegalSection heading="California residents (CCPA)">
+        <p>
+          If you live in California, you have the right to know what personal
+          information we collect (your email address), to request that we delete
+          it, and to not be discriminated against for exercising those rights. We
+          do not sell or share your personal information. To make a request,
+          email{" "}
+          <a className="text-paper underline" href="mailto:team@margin9.com">
+            team@margin9.com
+          </a>
+          .
         </p>
       </LegalSection>
 
@@ -72,7 +83,7 @@ export default function PrivacyPage() {
         <p>
           We&apos;ll update this page if our practices change and revise the date
           above. Questions? Reach us at{" "}
-          <strong className="text-paper">[CONTACT EMAIL]</strong>.
+          <a className="text-paper underline" href="mailto:team@margin9.com">team@margin9.com</a>.
         </p>
       </LegalSection>
     </LegalPage>
