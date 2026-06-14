@@ -201,8 +201,8 @@ function Ecosystem() {
           ))}
         </div>
 
-        <p className="mx-auto mt-10 flex max-w-xl items-center justify-center gap-2 text-center text-sm text-faint">
-          <span className="h-1.5 w-1.5 rounded-full bg-gold/70" />
+        <p className="mx-auto mt-10 max-w-xl text-center text-sm text-faint">
+          <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-gold/70 align-middle" />
           Nothing to import or move. Your notes stay exactly where they are.
         </p>
       </div>
