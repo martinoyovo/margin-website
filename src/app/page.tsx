@@ -5,7 +5,6 @@ import Image from "next/image";
 import { OverlayMock } from "@/components/OverlayMock";
 import { AgentDemo } from "@/components/AgentDemo";
 import { Logo } from "@/components/Logo";
-import { SparkleGlyph } from "@/components/AppIcons";
 
 export default function Home() {
   return (
@@ -36,7 +35,7 @@ function Hero() {
         <h1 className="animate-rise font-serif text-[2.7rem] font-light leading-[1.08] tracking-[-0.02em] text-paper sm:text-6xl">
           The best ideas were never
           <br className="hidden sm:block" /> in the text. They were in the{" "}
-          <span className="italic text-gold">margin.</span>
+          <span className="italic text-accent">margin.</span>
         </h1>
         <p
           className="animate-rise mx-auto mt-7 max-w-xl text-lg leading-relaxed text-muted"
@@ -68,7 +67,7 @@ function Hero() {
 /* ── The margin story ─────────────────────────────────────────────────────── */
 function Story() {
   return (
-    <section id="story" className="border-t border-white/[0.06] px-6 py-28">
+    <section id="story" className="border-t border-line px-6 py-28">
       <div className="mx-auto max-w-2xl text-center">
         <p className="eyebrow mb-6">Why &ldquo;Margin&rdquo;</p>
         <h2 className="font-serif text-3xl font-light leading-snug tracking-[-0.01em] text-paper sm:text-[2.5rem]">
@@ -119,7 +118,7 @@ function Problem() {
     },
   ];
   return (
-    <section className="border-t border-white/[0.06] px-6 py-28">
+    <section className="border-t border-line px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">The problem</p>
@@ -130,9 +129,9 @@ function Problem() {
             You write things down and never see them again. Four reasons why.
           </p>
         </div>
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-2">
+        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-surface-2 sm:grid-cols-2">
           {pains.map((p) => (
-            <div key={p.t} className="bg-ink p-8">
+            <div key={p.t} className="bg-bg p-8">
               <h3 className="text-lg font-medium text-paper">{p.t}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-muted">
                 {p.d}
@@ -165,7 +164,7 @@ function Ecosystem() {
     },
   ];
   return (
-    <section className="border-t border-white/[0.06] px-6 py-28">
+    <section className="border-t border-line px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">Works with your stack</p>
@@ -183,7 +182,7 @@ function Ecosystem() {
           {apps.map((a) => (
             <div
               key={a.name}
-              className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-7"
+              className="rounded-2xl border border-line bg-surface p-7"
             >
               <Image
                 src={a.icon}
@@ -230,7 +229,7 @@ function Outcomes() {
     },
   ];
   return (
-    <section className="border-t border-white/[0.06] px-6 py-28">
+    <section className="border-t border-line px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">What it’s for</p>
@@ -238,9 +237,9 @@ function Outcomes() {
             Your notes, finally working for you.
           </h2>
         </div>
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-2">
+        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-surface-2 sm:grid-cols-2">
           {outcomes.map((o) => (
-            <div key={o.t} className="bg-ink p-8">
+            <div key={o.t} className="bg-bg p-8">
               <span className="animate-core inline-block h-3 w-3 rounded-full bg-gold gold-glow" />
               <h3 className="mt-5 text-lg font-medium text-paper">{o.t}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-muted">
@@ -274,7 +273,7 @@ function HowItWorks() {
     },
   ];
   return (
-    <section id="how" className="border-t border-white/[0.06] px-6 py-28">
+    <section id="how" className="border-t border-line px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">The moment</p>
@@ -285,10 +284,10 @@ function HowItWorks() {
         <div className="mt-14">
           <OverlayMock />
         </div>
-        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.06] sm:grid-cols-3">
+        <div className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-line bg-surface-2 sm:grid-cols-3">
           {steps.map((s) => (
-            <div key={s.n} className="bg-ink p-8">
-              <span className="font-mono text-sm text-gold">{s.n}</span>
+            <div key={s.n} className="bg-bg p-8">
+              <span className="font-mono text-sm text-accent">{s.n}</span>
               <h3 className="mt-4 text-lg font-medium text-paper">{s.t}</h3>
               <p className="mt-3 text-[15px] leading-relaxed text-muted">
                 {s.d}
@@ -312,7 +311,7 @@ function Difference() {
     ["The feeling", "“Fix my grammar”", "“Think with me”"],
   ];
   return (
-    <section id="difference" className="border-t border-white/[0.06] px-6 py-28">
+    <section id="difference" className="border-t border-line px-6 py-28">
       <div className="mx-auto max-w-4xl">
         <div className="mx-auto max-w-2xl text-center">
           <p className="eyebrow mb-6">Apple Intelligence vs. Margin</p>
@@ -321,14 +320,20 @@ function Difference() {
           </h2>
         </div>
 
-        <div className="mt-14 overflow-hidden rounded-2xl border border-white/[0.08]">
+        <div className="mt-14 overflow-hidden rounded-2xl border border-line">
           {/* head-to-head header */}
-          <div className="grid grid-cols-[1.1fr_1fr_1fr] items-stretch border-b border-white/[0.08]">
-            <div className="bg-white/[0.02]" />
-            <div className="flex flex-col items-center gap-2 bg-white/[0.02] px-5 py-6 text-center">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-muted">
-                <SparkleGlyph size={16} />
-              </span>
+          <div className="grid grid-cols-[1.1fr_1fr_1fr] items-stretch border-b border-line">
+            <div className="bg-surface" />
+            <div className="flex flex-col items-center gap-2 bg-surface px-5 py-6 text-center">
+              <div className="flex h-14 items-center justify-center">
+                <Image
+                  src="/brand/apps/apple-intelligence-mono.png"
+                  alt="Apple Intelligence app icon"
+                  width={38}
+                  height={38}
+                  className="rounded-[11px] opacity-75 shadow-[0_2px_10px_-2px_rgba(0,0,0,0.4)]"
+                />
+              </div>
               <span className="text-sm font-medium text-muted">
                 Apple Intelligence
               </span>
@@ -336,12 +341,14 @@ function Difference() {
                 built into Notes
               </span>
             </div>
-            <div className="flex flex-col items-center gap-2 bg-gold/[0.05] px-5 py-6 text-center">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-gold/30 bg-gold/[0.08]">
-                <Logo size={20} />
-              </span>
-              <span className="text-sm font-medium text-paper">Margin</span>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-gold/80">
+            <div className="flex flex-col items-center gap-2 bg-gold/[0.07] px-5 py-6 text-center">
+              <div className="flex h-14 items-center justify-center">
+                <span className="flex h-[52px] w-[52px] items-center justify-center rounded-[15px] border border-gold/40 bg-ink-soft shadow-[0_0_30px_-3px_rgba(255,194,51,0.7),0_0_0_1px_rgba(255,194,51,0.18)]">
+                  <Logo size={48} ring="#f7f6f3" />
+                </span>
+              </div>
+              <span className="text-base font-semibold text-paper">Margin</span>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-accent/80">
                 the agent
               </span>
             </div>
@@ -354,7 +361,7 @@ function Difference() {
               <div className="p-5 text-sm text-faint">{label}</div>
               <div
                 className={`p-5 text-center text-[15px] text-muted ${
-                  i % 2 ? "bg-white/[0.015]" : ""
+                  i % 2 ? "bg-surface" : ""
                 }`}
               >
                 {apple}
@@ -387,7 +394,7 @@ function Pillars() {
     },
   ];
   return (
-    <section className="border-t border-white/[0.06] px-6 py-28">
+    <section className="border-t border-line px-6 py-28">
       <div className="mx-auto grid max-w-5xl gap-10 sm:grid-cols-3">
         {pillars.map((p) => (
           <div key={p.t}>
@@ -404,11 +411,11 @@ function Pillars() {
 /* ── Final CTA ────────────────────────────────────────────────────────────── */
 function FinalCta() {
   return (
-    <section className="border-t border-white/[0.06] px-6 py-32">
+    <section className="border-t border-line px-6 py-32">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="font-serif text-4xl font-light leading-tight tracking-[-0.01em] text-paper sm:text-5xl">
           Bring your notes
-          <br /> back to <span className="italic text-gold">life.</span>
+          <br /> back to <span className="italic text-accent">life.</span>
         </h2>
         <p className="mx-auto mt-6 max-w-md text-lg text-muted">
           Margin is in private beta for macOS. Join the waitlist and we&apos;ll

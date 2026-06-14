@@ -72,11 +72,14 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const themeScript = `(function(){try{var p=localStorage.getItem('theme')||'dark';var s=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(p==='auto'?s:p);}catch(e){document.documentElement.classList.add('dark');}})();`;
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${newsreader.variable} ${jetbrains.variable} ${kicker.variable} antialiased`}
       >
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         {children}
       </body>
     </html>

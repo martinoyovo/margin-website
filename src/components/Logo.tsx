@@ -13,7 +13,7 @@ type LogoProps = {
  */
 export function Logo({
   size = 40,
-  ring = "#f7f6f3",
+  ring = "var(--color-paper)",
   className,
   glow = true,
 }: LogoProps) {
@@ -45,7 +45,7 @@ export function Logo({
       <path
         d="M 46.53 75.07 A 59.0 59.0 0 1 0 75.07 46.53"
         fill="none"
-        stroke={ring}
+        style={{ stroke: ring }}
         strokeWidth={17}
         strokeLinecap="round"
       />
@@ -63,7 +63,7 @@ export function Logo({
 /** Logo + lowercase wordmark lockup. */
 export function Wordmark({
   size = 30,
-  ring = "#f7f6f3",
+  ring = "var(--color-paper)",
   className,
 }: {
   size?: number;

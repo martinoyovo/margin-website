@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.06] px-6 py-14">
+    <footer className="border-t border-line px-6 py-14">
       <div className="mx-auto flex max-w-6xl flex-col gap-10 sm:flex-row sm:items-start sm:justify-between">
         <div className="max-w-xs">
           <div className="flex items-center gap-2.5">
@@ -45,9 +46,10 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto mt-12 flex max-w-6xl items-center justify-between border-t border-white/[0.06] pt-6 text-xs text-faint">
+      <div className="mx-auto mt-12 flex max-w-6xl flex-col items-center gap-5 border-t border-line pt-6 text-xs text-faint sm:flex-row sm:justify-between">
         <span>© {new Date().getFullYear()} Margin</span>
-        <span className="font-mono">Made for macOS</span>
+        <ThemeToggle />
+        <span className="hidden font-mono sm:inline">Made for macOS</span>
       </div>
     </footer>
   );

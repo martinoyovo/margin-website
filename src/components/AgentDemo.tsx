@@ -44,15 +44,15 @@ export function AgentDemo() {
 
   return (
     <div className="mx-auto w-full max-w-3xl">
-      {/* the overlay panel */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-md">
+      {/* the overlay panel, forced dark (a depiction of the dark macOS app) */}
+      <div className="relative overflow-hidden rounded-2xl border border-line bg-card shadow-[0_8px_40px_-12px_rgba(0,0,0,0.25)]">
         {/* chrome */}
-        <div className="flex items-center gap-2.5 border-b border-white/[0.07] px-4 py-3">
+        <div className="flex items-center gap-2.5 border-b border-line px-4 py-3">
           <Logo size={18} />
           <span className="font-mono text-[11px] tracking-wide text-muted">
             margin
           </span>
-          <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] text-faint">
+          <span className="flex items-center gap-1.5 rounded-full border border-line-2 bg-surface-2 px-2.5 py-1 text-[11px] text-faint">
             <span className="h-1.5 w-1.5 rounded-full bg-gold/70" />
             Reading: {CONTEXT[tab]}
           </span>
@@ -62,14 +62,14 @@ export function AgentDemo() {
         </div>
 
         {/* tabs */}
-        <div className="flex gap-1 overflow-x-auto border-b border-white/[0.06] px-3 py-2">
+        <div className="flex gap-1 overflow-x-auto border-b border-line px-3 py-2">
           {TABS.map((t) => (
             <button
               key={t.id}
               onClick={() => setTab(t.id)}
               className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[12.5px] transition ${
                 tab === t.id
-                  ? "bg-gold/12 text-gold-hi"
+                  ? "bg-gold/12 text-accent"
                   : "text-muted hover:text-paper"
               }`}
             >
@@ -104,7 +104,7 @@ export function AgentDemo() {
 function Prompt({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-5 flex justify-end">
-      <div className="max-w-[85%] rounded-2xl rounded-br-md bg-white/[0.08] px-4 py-2.5 text-[14px] text-paper">
+      <div className="max-w-[85%] rounded-2xl rounded-br-md bg-surface-2 px-4 py-2.5 text-[14px] text-paper">
         {children}
       </div>
     </div>
@@ -113,7 +113,7 @@ function Prompt({ children }: { children: React.ReactNode }) {
 
 function Spark() {
   return (
-    <span className="animate-core mt-0.5 shrink-0 text-[15px] leading-none text-gold">
+    <span className="animate-core mt-0.5 shrink-0 text-[15px] leading-none text-accent">
       ✦
     </span>
   );
@@ -143,10 +143,11 @@ function folderHue(name: string) {
   return h % 360;
 }
 function folderColors(hue: number) {
+  // tints that read on both light and dark cards
   return {
-    bg: `hsla(${hue},38%,18%,0.6)`,
-    border: `hsla(${hue},55%,48%,0.30)`,
-    text: `hsla(${hue},55%,78%,1)`,
+    bg: `hsla(${hue},60%,50%,0.14)`,
+    border: `hsla(${hue},60%,50%,0.32)`,
+    text: `hsla(${hue},48%,55%,1)`,
   };
 }
 
@@ -178,7 +179,7 @@ function MapPanel() {
       </div>
 
       {/* graph */}
-      <div className="overflow-hidden rounded-xl border border-white/[0.07] bg-[#191919]">
+      <div className="overflow-hidden rounded-xl border border-line bg-[var(--graph-canvas)]">
         <div className="flex items-center justify-between px-3 py-2">
           <span className="font-mono text-[11px] text-faint">
             Knowledge graph · {GRAPH_NODES.length} connections
@@ -208,11 +209,11 @@ function MapPanel() {
                   key={n.title}
                   d={d}
                   fill="none"
-                  stroke={
-                    strong
-                      ? `rgba(255,194,51,${(n.strength * 0.45).toFixed(2)})`
-                      : `rgba(255,255,255,${(n.strength * 0.16).toFixed(2)})`
-                  }
+                  style={{
+                    stroke: strong
+                      ? "var(--graph-edge-strong)"
+                      : "var(--graph-edge)",
+                  }}
                   strokeWidth={0.5 + n.strength * 1.6}
                   strokeDasharray={strong ? undefined : "4,4"}
                 />
@@ -281,14 +282,14 @@ function GraphCard({
       className="relative rounded-[9px] px-2 py-2"
       style={{
         height: CARD_H,
-        background: source ? "#26201a" : "#222222",
-        border: `0.5px solid ${source ? "rgba(255,194,51,0.55)" : "rgba(255,255,255,0.09)"}`,
+        background: source ? "var(--graph-card-source)" : "var(--graph-card)",
+        border: `0.5px solid ${source ? "rgba(255,194,51,0.55)" : "var(--graph-node-border)"}`,
       }}
     >
       <div
         className="pr-5 text-[11px] leading-tight"
         style={{
-          color: source ? "#FFC233" : "#c2c2c2",
+          color: source ? "var(--graph-title-source)" : "var(--graph-title)",
           display: "-webkit-box",
           WebkitLineClamp: 1,
           WebkitBoxOrient: "vertical",
@@ -298,7 +299,7 @@ function GraphCard({
         {title}
       </div>
       {!source && strength != null && (
-        <span className="absolute right-2 top-2 font-mono text-[9px] text-white/25">
+        <span className="absolute right-2 top-2 font-mono text-[9px] text-faint">
           {Math.round(strength * 100)}%
         </span>
       )}
@@ -324,7 +325,7 @@ function AskPanel() {
             You went with the 12-month at $2,400. The early-termination clause on
             the 6-month option was the dealbreaker.
           </p>
-          <p className="mt-2 font-mono text-[11px] text-gold/80">
+          <p className="mt-2 font-mono text-[11px] text-accent/80">
             From “Apartment hunt” · Mar 3
           </p>
         </div>
@@ -354,10 +355,10 @@ function TasksPanel() {
             {tasks.map((t, i) => (
               <li
                 key={t}
-                className="animate-rise flex items-center gap-2.5 rounded-lg border border-white/[0.07] bg-white/[0.03] px-3 py-2 text-[14px] text-muted"
+                className="animate-rise flex items-center gap-2.5 rounded-lg border border-line bg-surface px-3 py-2 text-[14px] text-muted"
                 style={{ animationDelay: `${i * 130}ms` }}
               >
-                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-gold/50 text-[10px] text-gold">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-gold/50 text-[10px] text-accent">
                   ✓
                 </span>
                 {t}
@@ -412,7 +413,7 @@ function ScheduleCard({
     <div className="animate-rise flex items-center gap-3 rounded-lg border border-gold/25 bg-gold/[0.05] px-3.5 py-2.5">
       <span className="animate-core h-2 w-2 shrink-0 rounded-full bg-gold gold-glow" />
       <div className="min-w-0">
-        <p className="font-mono text-[10px] uppercase tracking-wider text-gold/80">
+        <p className="font-mono text-[10px] uppercase tracking-wider text-accent/80">
           {kind}
         </p>
         <p className="truncate text-[14px] text-paper">{title}</p>
