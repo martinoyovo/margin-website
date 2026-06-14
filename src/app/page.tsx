@@ -356,21 +356,18 @@ function Difference() {
             </div>
           </div>
           {rows.map(([label, apple, margin], i) => (
-            <div
-              key={label}
-              className="grid grid-cols-[1.1fr_1fr_1fr] items-center"
-            >
-              <div className="p-3 text-xs text-faint sm:p-5 sm:text-sm">
+            <div key={label} className="grid grid-cols-[1.1fr_1fr_1fr]">
+              <div className="flex items-center p-3 text-xs text-faint sm:p-5 sm:text-sm">
                 {label}
               </div>
               <div
-                className={`p-3 text-center text-[13px] text-muted sm:p-5 sm:text-[15px] ${
+                className={`flex items-center justify-center p-3 text-center text-[13px] text-muted sm:p-5 sm:text-[15px] ${
                   i % 2 ? "bg-surface" : ""
                 }`}
               >
                 {apple}
               </div>
-              <div className="p-3 text-center text-[13px] font-medium text-paper bg-gold/[0.04] sm:p-5 sm:text-[15px]">
+              <div className="flex items-center justify-center p-3 text-center text-[13px] font-medium text-paper bg-gold/[0.04] sm:p-5 sm:text-[15px]">
                 {margin}
               </div>
             </div>
