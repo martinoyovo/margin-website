@@ -8,14 +8,14 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
  * Env vars (set in Vercel):
  *   RESEND_API_KEY       required to do anything (else the signup is just logged)
  *   RESEND_AUDIENCE_ID   the Resend audience signups are added to
- *   RESEND_FROM          optional from address, e.g. "Margin <hello@margin9.com>"
+ *   RESEND_FROM          optional from address, e.g. "Margin <team@margin9.com>"
  *                        (defaults below; must be a verified sending domain)
  *
  * On submit we add the email to the audience (capture) and send a branded
  * confirmation email. The confirmation is best-effort: if it fails (e.g. the
  * domain isn't verified yet) the signup still succeeds.
  */
-const FROM = process.env.RESEND_FROM || "Margin <hello@margin9.com>";
+const FROM = process.env.RESEND_FROM || "Margin <team@margin9.com>";
 
 export async function POST(req: Request) {
   let email = "";
