@@ -2,6 +2,7 @@
 
 /* ── Margin brand: ink + gold ──────────────────────────────────────────── */
 @theme {
+  /* constants, same in both themes */
   --color-ink: #14131a;
   --color-ink-soft: #1e1c26;
   --color-ink-raised: #26242f;
@@ -10,19 +11,75 @@
   --color-mist: #e8e6ec;
   --color-white: #ffffff;
 
-  /* tuned neutrals for body text on ink */
+  /* semantic tokens that resolve to theme variables (flip per theme) */
+  --color-bg: #14131a;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-surface-2: rgba(255, 255, 255, 0.06);
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-2: rgba(255, 255, 255, 0.13);
   --color-paper: #f7f6f3;
   --color-muted: #9b98a6;
   --color-faint: #6b6878;
+  --color-card: #1e1c26;
+  /* accent for text/marks: gold on dark, ink on light (brand inversion) */
+  --color-accent: #ffc233;
 
   --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: var(--font-jetbrains), "SF Mono", ui-monospace, monospace;
 }
 
+/* ── Themes ─────────────────────────────────────────────────────────────── */
+/* Product-demo (knowledge graph) colors: dark defaults, flipped under light. */
 :root {
-  --background: #14131a;
-  --foreground: #f7f6f3;
+  --graph-canvas: #191919;
+  --graph-card: #232228;
+  --graph-card-source: #26201a;
+  --graph-node-border: rgba(255, 255, 255, 0.09);
+  --graph-title: #c6c4cd;
+  --graph-title-source: #ffc233;
+  --graph-meta: rgba(255, 255, 255, 0.25);
+  --graph-edge: rgba(255, 255, 255, 0.13);
+  --graph-edge-strong: rgba(255, 194, 51, 0.42);
+}
+
+/* Dark is the default (from @theme above). Light overrides the color tokens. */
+html.light {
+  /* brand light palette: white ground, ink foreground, mist greys */
+  --color-bg: #ffffff;
+  --color-card: #ffffff;
+  --color-paper: #14131a;
+  --color-muted: #6b6975;
+  --color-faint: #9a98a2;
+  --color-surface: #f6f5f3;
+  --color-surface-2: #e8e6ec;
+  --color-line: #e6e4ea;
+  --color-line-2: #d8d6de;
+  /* gold stays the brand gold (#ffc233) for fills/core; text accent inverts to ink */
+  --color-accent: #14131a;
+  --aperture-gold: rgba(255, 194, 51, 0.05);
+  /* product-demo (knowledge graph) light palette */
+  --graph-canvas: #eceef1;
+  --graph-card: #ffffff;
+  --graph-card-source: #fff7e6;
+  --graph-node-border: rgba(20, 19, 26, 0.12);
+  --graph-title: #44434c;
+  --graph-title-source: #9a7616;
+  --graph-meta: rgba(20, 19, 26, 0.32);
+  --graph-edge: rgba(20, 19, 26, 0.16);
+  --graph-edge-strong: rgba(181, 120, 12, 0.55);
+}
+
+/* Forced-dark scope for product mockups embedded in a light page. */
+.dark {
+  --color-bg: #14131a;
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-surface-2: rgba(255, 255, 255, 0.06);
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-2: rgba(255, 255, 255, 0.13);
+  --color-paper: #f7f6f3;
+  --color-muted: #9b98a6;
+  --color-faint: #6b6878;
 }
 
 html {
@@ -30,8 +87,8 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--color-bg);
+  color: var(--color-paper);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -45,7 +102,7 @@ body {
   font-size: 1.05rem;
   letter-spacing: 0;
   text-transform: none;
-  color: var(--color-gold);
+  color: var(--color-accent);
 }
 
 /* the glowing core, reused for accents */
@@ -55,15 +112,15 @@ body {
     0 0 24px -2px rgba(255, 194, 51, 0.45);
 }
 
-/* subtle radial light for the ink surface */
+/* subtle radial gold light over the page base (themes with --aperture-base) */
 .aperture-light {
   background:
     radial-gradient(
       62% 48% at 50% -8%,
-      rgba(255, 194, 51, 0.12) 0%,
+      var(--aperture-gold, rgba(255, 194, 51, 0.12)) 0%,
       rgba(255, 194, 51, 0) 60%
     ),
-    #14131a;
+    var(--color-bg);
 }
 
 @keyframes pulse-core {
@@ -139,3 +196,4 @@ body {
   background: rgba(255, 194, 51, 0.28);
   color: #fff;
 }
+

@@ -42,7 +42,7 @@ export function WaitlistForm({
   if (status === "success") {
     return (
       <div
-        className={`flex items-center gap-3 rounded-full border border-gold/40 bg-gold/10 px-5 py-3.5 text-sm text-gold-hi ${
+        className={`flex items-center gap-3 rounded-full border border-gold/40 bg-gold/10 px-5 py-3.5 text-sm text-accent ${
           variant === "hero" ? "max-w-md" : ""
         }`}
       >
@@ -65,7 +65,7 @@ export function WaitlistForm({
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
           aria-label="Email address"
-          className="min-w-0 flex-1 rounded-full border border-white/12 bg-white/[0.04] px-5 py-3.5 text-[15px] text-paper outline-none transition placeholder:text-faint focus:border-gold/50 focus:bg-white/[0.06]"
+          className="min-w-0 flex-1 rounded-full border border-line-2 bg-surface-2 px-5 py-3.5 text-[15px] text-paper outline-none transition placeholder:text-faint focus:border-gold/50 focus:bg-surface-2"
         />
         <button
           type="submit"

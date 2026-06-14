@@ -71,7 +71,7 @@ export default function PricingPage() {
               className={`flex flex-col rounded-2xl border p-8 ${
                 t.featured
                   ? "border-gold/40 bg-gold/[0.04]"
-                  : "border-white/[0.08] bg-white/[0.02]"
+                  : "border-line bg-surface"
               }`}
             >
               <div className="flex items-center gap-2">
@@ -109,7 +109,7 @@ export default function PricingPage() {
                 className={`mt-8 inline-flex items-center justify-center rounded-full px-6 py-3 text-[15px] font-medium transition ${
                   t.featured
                     ? "bg-gold text-ink hover:bg-gold-hi"
-                    : "border border-white/15 text-paper hover:bg-white/[0.04]"
+                    : "border border-line-2 text-paper hover:bg-surface-2"
                 }`}
               >
                 {t.cta}
