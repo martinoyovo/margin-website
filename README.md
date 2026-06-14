@@ -38,6 +38,13 @@ send a branded confirmation email. Copy `.env.example` to `.env.local` and set:
 Without `RESEND_API_KEY`, signups are logged server-side so the form still
 works in dev. The confirmation email is best-effort and never blocks a signup.
 
+**Smoke test** the live endpoint after deploy:
+
+```bash
+node scripts/smoke-waitlist.mjs https://margin9.com you+test@example.com
+# add RESEND_API_KEY + RESEND_AUDIENCE_ID to also confirm the contact landed
+```
+
 ## Before launch: placeholders to fill
 
 - `src/app/download/page.tsx` → `DMG_URL` (the real download link)
