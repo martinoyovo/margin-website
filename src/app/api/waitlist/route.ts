@@ -31,7 +31,7 @@ async function getAudienceId(authHeaders: Record<string, string>): Promise<strin
   } catch {
     cachedAudienceId = null;
   }
-  return cachedAudienceId;
+  return cachedAudienceId ?? null;
 }
 
 export async function POST(req: Request) {
