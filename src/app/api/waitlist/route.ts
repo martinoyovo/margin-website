@@ -123,7 +123,7 @@ function confirmationHtml(): string {
       <tr><td style="font-size:15px;line-height:1.6;color:#56535f;padding-bottom:30px;">
         We'll email your invite the moment your spot opens. Talk soon.
       </td></tr>
-      <tr><td style="font-size:14px;font-weight:500;color:#14131a;">The Margin team</td></tr>
+      <tr><td style="font-size:14px;font-weight:500;color:#14131a;">The Margin Team</td></tr>
     </table>
     <table role="presentation" style="width:480px;max-width:100%;"><tr><td style="font-size:12px;color:#9a98a2;padding:18px 36px 0;line-height:1.5;">
       You're receiving this because you joined the waitlist at margin9.com.
