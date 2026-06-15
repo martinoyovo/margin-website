@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,wght@0,300;0,400;1,300;1,400&family=Spectral:ital@1;wght@1,400&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    background:
+      radial-gradient(58% 48% at 26% -12%, rgba(255,194,51,0.16), rgba(255,194,51,0) 60%),
+      #14131a;
+    color: #f7f6f3;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    padding: 70px 72px;
+    overflow: hidden;
+  }
+  .left { width: 47%; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 44px; }
+  .brand .wm { font-size: 30px; font-weight: 600; letter-spacing: -0.04em; }
+  .eyebrow {
+    font-family: 'Spectral', serif; font-style: italic;
+    color: #ffc233; font-size: 23px; margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Newsreader', serif; font-weight: 300;
+    font-size: 68px; line-height: 1.03; letter-spacing: -0.02em;
+  }
+  h1 .g { font-style: italic; color: #ffc233; }
+  .right { flex: 1; display: flex; align-items: center; justify-content: center; }
+  .right svg { width: 100%; height: auto; }
+  .nodelabel { font-family: 'Inter', sans-serif; }
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="brand">
+      <svg width="36" height="36" viewBox="0 0 200 200" fill="none">
+        <path d="M 46.53 75.07 A 59 59 0 1 0 75.07 46.53" fill="none" stroke="#f7f6f3" stroke-width="17" stroke-linecap="round" />
+        <circle cx="100" cy="100" r="18" fill="#FFC233" />
+      </svg>
+      <span class="wm">margin</span>
+    </div>
+    <div class="eyebrow">The AI agent for Apple Notes, Reminders &amp; Calendar</div>
+    <h1>Apple Notes,<br />finally <span class="g">powerful.</span></h1>
+  </div>
+
+  <div class="right">
+    <svg viewBox="0 0 600 392" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="cg" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(255,194,51,0.45)" />
+          <stop offset="60%" stop-color="rgba(255,194,51,0.12)" />
+          <stop offset="100%" stop-color="rgba(255,194,51,0)" />
+        </radialGradient>
+      </defs>
+
+      <!-- connectors -->
+      <path d="M 300 46 Q 336 122 300 188" fill="none" stroke="rgba(255,194,51,0.20)" stroke-width="1.6" />
+      <path d="M 86 322 Q 196 252 300 188" fill="none" stroke="rgba(255,194,51,0.20)" stroke-width="1.6" />
+      <path d="M 514 322 Q 404 252 300 188" fill="none" stroke="rgba(255,194,51,0.20)" stroke-width="1.6" />
+      <!-- static current dashes -->
+      <path d="M 300 46 Q 336 122 300 188" fill="none" stroke="rgba(255,194,51,0.6)" stroke-width="1.6" stroke-dasharray="3 11" />
+      <path d="M 86 322 Q 196 252 300 188" fill="none" stroke="rgba(255,194,51,0.6)" stroke-width="1.6" stroke-dasharray="3 11" />
+      <path d="M 514 322 Q 404 252 300 188" fill="none" stroke="rgba(255,194,51,0.6)" stroke-width="1.6" stroke-dasharray="3 11" />
+      <!-- pulse dots -->
+      <circle cx="312" cy="120" r="3.4" fill="#FFD879" />
+      <circle cx="208" cy="246" r="3.4" fill="#FFD879" />
+      <circle cx="392" cy="246" r="3.4" fill="#FFD879" />
+
+      <!-- app nodes -->
+      <g>
+        <rect x="267" y="13" width="66" height="66" rx="17" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" />
+        <image href="http://localhost:3000/brand/apps/notes.png" x="275" y="21" width="50" height="50" />
+        <text x="300" y="98" text-anchor="middle" font-size="14.5" fill="#9b98a6" class="nodelabel">Apple Notes</text>
+      </g>
+      <g>
+        <rect x="53" y="289" width="66" height="66" rx="17" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" />
+        <image href="http://localhost:3000/brand/apps/reminders.png" x="61" y="297" width="50" height="50" />
+        <text x="86" y="374" text-anchor="middle" font-size="14.5" fill="#9b98a6" class="nodelabel">Reminders</text>
+      </g>
+      <g>
+        <rect x="481" y="289" width="66" height="66" rx="17" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" />
+        <image href="http://localhost:3000/brand/apps/calendar.png" x="489" y="297" width="50" height="50" />
+        <text x="514" y="374" text-anchor="middle" font-size="14.5" fill="#9b98a6" class="nodelabel">Calendar</text>
+      </g>
+
+      <!-- Margin core -->
+      <circle cx="300" cy="188" r="62" fill="url(#cg)" />
+      <image href="http://localhost:3000/brand/icon_256x256.png" x="258" y="146" width="84" height="84" />
+      <text x="300" y="252" text-anchor="middle" font-size="15" font-weight="600" fill="#f7f6f3" class="nodelabel">Margin</text>
+    </svg>
+  </div>
+</body>
+</html>
