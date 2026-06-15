@@ -5,6 +5,8 @@ the edge of your Mac. Built with Next.js 16 (App Router) + Tailwind v4.
 
 > The best ideas were never in the text. They were in the margin.
 
+![Margin landing page — "Apple Notes, finally powerful" with the live agent demo](docs/screenshot.png)
+
 ## Develop
 
 ```bash
