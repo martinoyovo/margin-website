@@ -195,6 +195,43 @@ body {
   animation: slide-in-edge 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* ── Ecosystem diagram: flowing veins/circuit ─────────────────────────────── */
+@keyframes vein-flow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+.vein-flow {
+  animation: vein-flow 1.4s linear infinite;
+}
+
+@keyframes vein-glow {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.06);
+  }
+}
+.vein-glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vein-glow 3.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vein-flow,
+  .vein-glow {
+    animation: none;
+  }
+  .vein-pulse {
+    display: none;
+  }
+}
+
 ::selection {
   background: rgba(255, 194, 51, 0.28);
   color: #fff;
