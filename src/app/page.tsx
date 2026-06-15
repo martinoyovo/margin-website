@@ -32,7 +32,7 @@ function Hero() {
     <section className="aperture-light relative overflow-hidden px-6 pb-24 pt-36 sm:pt-44">
       <div className="mx-auto max-w-3xl text-center">
         <p className="eyebrow animate-rise mb-8">
-          For people who live in Apple Notes
+          The AI agent for Apple Notes, Reminders &amp; Calendar
         </p>
         <h1 className="animate-rise font-serif text-[2.7rem] font-light leading-[1.08] tracking-[-0.02em] text-paper sm:text-6xl">
           Apple Notes,
