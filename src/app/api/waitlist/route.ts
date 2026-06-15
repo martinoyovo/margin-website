@@ -114,7 +114,7 @@ function confirmationHtml(): string {
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">
     <table role="presentation" cellpadding="0" cellspacing="0" style="width:480px;max-width:100%;background:#ffffff;border:1px solid #e6e4ea;border-radius:14px;padding:40px 36px;">
       <tr><td style="font-size:19px;font-weight:600;letter-spacing:-0.5px;padding-bottom:26px;">
-        <span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:#ffc233;margin-right:9px;vertical-align:middle;"></span>margin
+        <img src="https://margin9.com/brand/icon_256x256.png" width="34" height="34" alt="Margin" style="width:34px;height:34px;vertical-align:middle;margin-right:10px;border:0;outline:none;text-decoration:none;display:inline-block;" />margin
       </td></tr>
       <tr><td style="font-size:22px;font-weight:600;letter-spacing:-0.3px;padding-bottom:14px;">You're on the list.</td></tr>
       <tr><td style="font-size:15px;line-height:1.6;color:#56535f;padding-bottom:18px;">
