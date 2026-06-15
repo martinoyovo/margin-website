@@ -5,7 +5,6 @@ import Image from "next/image";
 import { OverlayMock } from "@/components/OverlayMock";
 import { AgentDemo } from "@/components/AgentDemo";
 import { Logo } from "@/components/Logo";
-import { EcosystemDiagram } from "@/components/EcosystemDiagram";
 
 export default function Home() {
   return (
@@ -179,10 +178,6 @@ function Ecosystem() {
             Notes, Reminders, and Calendar you already use, and finally makes
             them talk to each other.
           </p>
-        </div>
-
-        <div className="mt-12 sm:mt-16">
-          <EcosystemDiagram />
         </div>
 
         <div className="mt-14 grid gap-5 sm:grid-cols-3">
